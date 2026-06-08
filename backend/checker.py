@@ -34,3 +34,18 @@ def check_secrets(repo_path):
             "passed": True,
             "reason": "No confidentials are hardcoded"
         }
+    
+def check_readme(repo_path):
+    keywords = ["README.md", "README.txt", "README"]
+    for keyword in keywords:
+        readme_path = os.path.join(repo_path, keyword)
+        if os.path.exists(readme_path):
+            return {
+                "passed": True,
+                "reason": "Readme exists"
+            }
+        else:
+            return {
+                "passed": False,
+                "reason": "Readme does not exist!"
+            }
