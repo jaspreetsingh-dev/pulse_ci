@@ -44,8 +44,7 @@ def check_readme(repo_path):
                 "passed": True,
                 "reason": "Readme exists"
             }
-        else:
-            return {
-                "passed": False,
-                "reason": "Readme does not exist!"
-            }
+    return {
+        "passed": False,
+        "reason": "Readme does not exist!"
+    }
