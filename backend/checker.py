@@ -61,3 +61,29 @@ def check_tests(repo_path):
         "passed": False,
         "reason": "no test files found"
     }
+
+def check_env(repo_path):
+    keyword = ".env.example"
+    env_path = os.path.join(repo_path, keyword)
+    if os.path.exists(env_path):
+        return {
+            "passed": True,
+            "reason": "env example exists"
+        }
+    return {
+        "passed": False,
+        "reason": "env does not exist"
+    }
+
+def check_gitignore(repo_path):
+    keyword = ".gitignore"
+    gitignore_path = os.path.join(repo_path, keyword)
+    if os.path.exists(gitignore_path):
+        return {
+            "passed": True,
+            "reason": ".gitignore exists"
+        }
+    return {
+        "passed": False,
+        "reason": ".gitignore does not exist"
+    }
