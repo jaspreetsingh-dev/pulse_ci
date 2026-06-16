@@ -48,3 +48,16 @@ def check_readme(repo_path):
         "passed": False,
         "reason": "Readme does not exist!"
     }
+
+def check_tests(repo_path):
+    for root, dirs, files in os.walk(repo_path):
+        for file in files:
+            if file.startswith("test_") or file.endswith("_test.py") or file.endswith("_test.js"):
+                return {
+                    "passed": True,
+                    "reason": "test file found"
+                }
+    return {
+        "passed": False,
+        "reason": "no test files found"
+    }
