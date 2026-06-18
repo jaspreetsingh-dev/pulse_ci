@@ -87,3 +87,29 @@ def check_gitignore(repo_path):
         "passed": False,
         "reason": ".gitignore does not exist"
     }
+
+def check_commit_message(commit_message):
+    keywords = ["feat:", "fix:", "refactor:", "docs:", "chore"]
+    for keyword in keywords:
+        if keyword in commit_message:
+            return {
+                "passed": True,
+                "reason": "the commit message is professional"
+            }
+    if len(commit_message) < 10:
+        return {
+            "passed": False,
+            "reason": "the commit message is unclear"
+        }
+    banned_words = ["fix", "update", "test", "misc", "changes", "stuff", "asdf"]
+    words_in_message = commit_message.lower().split()
+    for word in banned_words:
+        if word in words_in_message:
+            return {
+                "passed": False,
+                "reason": "the commit is not sufficient"
+            }
+    return {
+        "passed": True,
+        "reason": "commit is healthy"
+    }
