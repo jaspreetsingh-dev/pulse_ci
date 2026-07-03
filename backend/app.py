@@ -35,3 +35,32 @@ def analysis():
         })
     finally:
         cleanup(repo_path)
+
+@app.route("/webhook", methods=["POST"])
+def webhook():
+    data = request.json
+    repo_url = data["repository"]["clone_url"]
+    commit_message = data["head_commit"]["message"]
+    repo_path = clone_repo(repo_url)
+    try:
+        result1 = check_dependencies(repo_path)
+        result2 = check_secrets(repo_path)
+        result3 = check_readme(repo_path)
+        result4 = check_tests(repo_path)
+        result5 = check_env(repo_path)
+        result6 = check_commit_message(commit_message)
+        result7 = check_gitignore(repo_path)
+        checks = [result1, result2, result3, result4, result5, result6, result7]
+        passed = sum(1 for check in checks if check["passed"])
+        score = int(passed / len(checks) * 100)
+        save_result(repo_url, score, commit_message, passed)
+        return jsonify({
+            "repo_url": repo_url,
+            "score": score,
+            "checks": checks
+        })
+    finally:
+        cleanup(repo_path)
+
+if __name__ == "__main__":
+    app.run(debug=True)
