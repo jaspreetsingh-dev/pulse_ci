@@ -1,0 +1,200 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #ffffff;
+  color: #1a1a1a;
+  min-height: 100vh;
+}
+
+/* TOP BAR */
+.topbar {
+  padding: 32px 48px 0;
+  position: relative;
+}
+
+.logo {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 1.5rem;
+  color: #4A90C4;
+  letter-spacing: 0.02em;
+}
+
+.meta-badge {
+  position: absolute;
+  top: 32px;
+  right: 48px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+  color: #aaaaaa;
+  border: 1px solid #e8e8e8;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-family: 'Inter', monospace;
+  letter-spacing: 0.04em;
+}
+
+.badge-divider {
+  color: #dddddd;
+}
+
+/* HERO */
+.hero {
+  padding: 48px 48px 64px;
+}
+
+.tagline {
+  font-size: 0.95rem;
+  color: #888888;
+  margin-bottom: 40px;
+  max-width: 480px;
+  line-height: 1.6;
+}
+
+.input-row {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 280px;
+}
+
+.input-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #888888;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.input-box {
+  display: flex;
+  align-items: center;
+  border: 1.5px dashed #BED9F4;
+  border-radius: 6px;
+  padding: 10px 14px;
+  gap: 10px;
+  background: #ffffff;
+}
+
+.input-text {
+  font-size: 0.875rem;
+  color: #1a1a1a;
+  flex: 1;
+  font-family: 'Inter', monospace;
+}
+
+.repo-input {
+  border: none;
+  outline: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  color: #1a1a1a;
+  flex: 1;
+  background: transparent;
+}
+
+.repo-input::placeholder { color: #aaaaaa; }
+
+.icon-btn {
+  background: none;
+  border: 1.5px solid #BED9F4;
+  border-radius: 4px;
+  padding: 4px 6px;
+  cursor: pointer;
+  color: #4A90C4;
+  display: flex;
+  align-items: center;
+  transition: background 0.15s;
+}
+
+.icon-btn:hover { background: #f0f7ff; }
+
+.status-msg {
+  font-size: 0.8rem;
+  color: #aaaaaa;
+  margin-top: 12px;
+  letter-spacing: 0.04em;
+}
+
+/* DASHBOARD */
+.dashboard {
+  padding: 0 48px 80px;
+}
+
+.dashboard-heading {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 1.1rem;
+  color: #4A90C4;
+  margin-bottom: 28px;
+  letter-spacing: 0.02em;
+}
+
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.results-table th {
+  text-align: left;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #888888;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0 16px 12px 0;
+  border-bottom: 1.5px solid #BED9F4;
+}
+
+.results-table td {
+  padding: 16px 16px 16px 0;
+  font-size: 0.875rem;
+  color: #555555;
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: middle;
+}
+
+.repo-name {
+  color: #4A90C4;
+  font-weight: 500;
+}
+
+.commit-name {
+  color: #4A90C4;
+  font-size: 0.82rem;
+}
+
+.score {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.checks-dots {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #BED9F4;
+}
+
+.dot.passed { background: #4A90C4; }
+.dot.failed { background: #e0e0e0; }
+
+.empty-row td {
+  color: #aaaaaa;
+  font-size: 0.85rem;
+  padding: 40px 0;
+}
+

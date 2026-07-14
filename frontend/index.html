@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PulseCI</title>
+  <link rel="stylesheet" href="/frontend/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <h1 class="logo">PulseCI</h1>
+    <div class="meta-badge">
+  <span>v1.0.0</span>
+  <span class="badge-divider">·</span>
+  <span>7 checks</span>
+  <span class="badge-divider">·</span>
+  <span>webhook-driven</span>
+</div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <p class="tagline">Six checks. All obvious. Obvious enough that half your repos fail them.</p>
+
+    <div class="input-row">
+
+      <!-- WEBHOOK URL -->
+      <div class="input-group">
+        <span class="input-label">Webhook URL</span>
+        <div class="input-box">
+          <span class="input-text" id="webhook-url">http://localhost:5000/webhook</span>
+          <button class="icon-btn" onclick="copyWebhook()" title="Copy">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ANALYZE INPUT -->
+      <div class="input-group">
+        <span class="input-label">Analyze a repo</span>
+        <div class="input-box">
+          <input type="text" id="repo-input" placeholder="github.com/username/repo" class="repo-input"/>
+          <button class="icon-btn" onclick="analyzeRepo()" title="Analyze">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+    </div>
+    <p class="status-msg" id="status-msg"></p>
+  </section>
+
+  <!-- DASHBOARD -->
+  <section class="dashboard">
+    <h2 class="dashboard-heading">Dashboard</h2>
+
+    <table class="results-table">
+      <thead>
+        <tr>
+          <th>Repo</th>
+          <th>Score</th>
+          <th>Commit</th>
+          <th>Checks</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody id="results-body">
+  <tr class="empty-row">
+    <td colspan="5">No analyses yet. Paste a repo above or push a commit.</td>
+  </tr>
+</tbody>
+    </table>
+  </section>
+
+  <script src="/frontend/script.js"></script>
+</body>
+</html>
