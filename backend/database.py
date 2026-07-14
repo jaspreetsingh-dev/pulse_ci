@@ -4,6 +4,7 @@ import os
 
 DB_PATH = os.getenv("DB_PATH", "data/results.db")
 def init_db():
+    os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("CREATE TABLE IF NOT EXISTS results ("
