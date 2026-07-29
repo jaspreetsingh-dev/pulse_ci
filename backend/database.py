@@ -2,6 +2,7 @@ import os
 import datetime
 import psycopg
 from dotenv import load_dotenv
+import json
 
 load_dotenv()
 
@@ -33,15 +34,17 @@ def init_db():
             score INTEGER,
             timestamp TIMESTAMP,
             commit_message TEXT,
-            passed_checks INTEGER
+            passed_checks INTEGER,
+            checks JSONB
         )
     """)
 
     conn.commit()
+    cursor.close()
     conn.close()
 
 
-def save_result(repo_url, score, commit_message, passed_checks):
+def save_result(repo_url, score, commit_message, passed_checks, checks):
     timestamp = datetime.datetime.now()
 
     conn = get_connection()
@@ -53,18 +56,21 @@ def save_result(repo_url, score, commit_message, passed_checks):
             score,
             timestamp,
             commit_message,
-            passed_checks
+            passed_checks,
+            checks
         )
-        VALUES (%s, %s, %s, %s, %s)
+        VALUES (%s, %s, %s, %s, %s, %s)
     """, (
         repo_url,
         score,
         timestamp,
         commit_message,
-        passed_checks
+        passed_checks,
+        json.dumps(checks)
     ))
 
     conn.commit()
+    cursor.close()
     conn.close()
 
 
@@ -80,6 +86,7 @@ def get_results():
 
     rows = cursor.fetchall()
 
+    cursor.close()
     conn.close()
 
     return rows

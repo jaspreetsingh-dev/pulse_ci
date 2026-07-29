@@ -198,3 +198,104 @@ body {
   padding: 40px 0;
 }
 
+/* TABLE ROWS */
+
+.result-row {
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.result-row:hover {
+  background: #f8fbff;
+}
+
+.result-row:has(+ .details-row.open) {
+  background: #f5faff;
+}
+
+.results-table td {
+  padding: 16px 16px 16px 0;
+  font-size: 0.875rem;
+  color: #555555;
+  border-bottom: 1px solid #d8e2ee;
+  vertical-align: middle;
+}
+
+.details-row {
+  display: none;
+}
+
+.details-row.open {
+  display: table-row;
+}
+
+.details-row td {
+  padding: 24px 0;
+  background: #fdfefe;
+  border-bottom: 2px solid #c7d8ea;
+}
+
+/* INSPECTION REPORT */
+
+.check-item {
+  padding: 14px 0;
+  border-bottom: 1px solid #ececec;
+}
+
+.check-item:last-child {
+  border-bottom: none;
+}
+
+.check-item strong {
+  color: #1f2937;
+}
+
+.check-item p {
+  margin-top: 4px;
+  color: #666;
+  line-height: 1.6;
+}
+
+.recommendation {
+  margin-top: 10px;
+  padding: 10px 14px;
+  border-left: 3px solid #4A90C4;
+  background: #f7fbff;
+  color: #555;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+
+  .topbar,
+  .hero,
+  .dashboard {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .meta-badge {
+    position: static;
+    margin-top: 16px;
+    width: fit-content;
+  }
+
+  .input-row {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .results-table {
+    font-size: 0.82rem;
+  }
+}
+
+.expand-icon {
+    display: inline-block;
+    width: 14px;
+    margin-right: 8px;
+    color: #4A90C4;
+    font-size: 0.75rem;
+    transition: transform 0.15s ease;
+}

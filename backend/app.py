@@ -49,7 +49,8 @@ def analyse_repository(repo_url, commit_message):
             repo_url,
             score,
             commit_message,
-            passed
+            passed,
+            checks
         )
 
         return {
