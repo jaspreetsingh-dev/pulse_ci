@@ -39,3 +39,8 @@ variable "ami_id" {
     type = string
     description = "AMI used for the EC2 instance."
 }
+
+variable "ssh_allowed_ip" {
+  description = "Public IP allowed to SSH into the EC2 instance."
+  type        = string
+}
