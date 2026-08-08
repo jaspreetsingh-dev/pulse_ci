@@ -44,3 +44,26 @@ variable "ssh_allowed_ip" {
   description = "Public IP allowed to SSH into the EC2 instance."
   type        = string
 }
+
+variable "db_name" {
+  type        = string
+  description = "Name of the Pulse CI database."
+  default     = "pulse_ci"
+}
+
+variable "db_username" {
+  type        = string
+  description = "Username for the Pulse CI database."
+}
+
+variable "db_password" {
+  type        = string
+  description = "Password for the Pulse CI database."
+  sensitive   = true
+}
+
+variable "db_instance_class" {
+  type        = string
+  description = "RDS instance class."
+  default     = "db.t3.micro"
+}
