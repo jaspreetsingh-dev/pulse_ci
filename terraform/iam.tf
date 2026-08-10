@@ -42,19 +42,28 @@ resource "aws_iam_policy" "ec2" {
     Statement = [
 
       {
+      Effect = "Allow"
 
-        Effect = "Allow"
+      Action = [
+        "ssm:GetParameter",
+        "ssm:GetParameters"
+      ]
 
-        Action = [
-          "ssm:GetParameter",
-          "ssm:GetParameters",
-          "logs:CreateLogGroup",
-          "logs:CreateLogStream",
-          "logs:PutLogEvents"
-        ]
+      Resource = [
+        "arn:aws:ssm:${var.region}:*:parameter/${var.project_name}/*"
+      ]
+      },
 
-        Resource = "*"
+      {
+      Effect = "Allow"
+ 
+      Action = [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ]
 
+      Resource = "*"
       }
 
     ]

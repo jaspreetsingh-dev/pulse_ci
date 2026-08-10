@@ -29,6 +29,11 @@ variable "private_subnet_cidr" {
   description = "CIDR block for the private subnet."
 }
 
+variable "private_subnet_b_cidr" {
+  type        = string
+  description = "CIDR block for the second private subnet."
+}
+
 variable "instance_type" {
     type = string
     description = "EC2 instance type."
@@ -54,12 +59,6 @@ variable "db_name" {
 variable "db_username" {
   type        = string
   description = "Username for the Pulse CI database."
-}
-
-variable "db_password" {
-  type        = string
-  description = "Password for the Pulse CI database."
-  sensitive   = true
 }
 
 variable "db_instance_class" {

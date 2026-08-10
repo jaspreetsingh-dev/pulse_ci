@@ -34,19 +34,34 @@ resource "aws_subnet" "public" {
     }
 }
 
-resource "aws_subnet" "private" {
-    
-    vpc_id = aws_vpc.main.id
+resource "aws_subnet" "private_a" {
 
-    availability_zone = "${var.region}a"
-    
-    cidr_block = var.private_subnet_cidr
+  vpc_id = aws_vpc.main.id
 
-    map_public_ip_on_launch = false
+  availability_zone = "${var.region}a"
 
-    tags = {
-        Name = "${var.project_name}-private-subnet"
-    }
+  cidr_block = var.private_subnet_cidr
+
+  map_public_ip_on_launch = false
+
+  tags = {
+    Name = "${var.project_name}-private-subnet-a"
+  }
+}
+
+resource "aws_subnet" "private_b" {
+
+  vpc_id = aws_vpc.main.id
+
+  availability_zone = "${var.region}b"
+
+  cidr_block = var.private_subnet_b_cidr
+
+  map_public_ip_on_launch = false
+
+  tags = {
+    Name = "${var.project_name}-private-subnet-b"
+  }
 }
 
 resource "aws_route_table" "public" {

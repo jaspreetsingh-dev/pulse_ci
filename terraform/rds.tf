@@ -1,17 +1,28 @@
 resource "aws_db_instance" "postgres" {
-    engine = "postgres"
 
-    instance_class = var.db_instance_class
+  engine = "postgres"
 
-    username = var.db_username
+  instance_class = var.db_instance_class
 
-    password = var.db_password
+  db_name = var.db_name
 
-    allocated_storage = 20
+  username = var.db_username
 
-    vpc_security_group_ids = [aws_security_group.db.id]
+  manage_master_user_password = true
 
-    db_subnet_group_name = aws_db_subnet_group.postgres.name
+  allocated_storage = 20
+
+  publicly_accessible = false
+
+  vpc_security_group_ids = [
+    aws_security_group.db.id
+  ]
+
+  db_subnet_group_name = aws_db_subnet_group.postgres.name
+
+  backup_retention_period = 7
+
+  deletion_protection = false
 }
 
 resource "aws_db_subnet_group" "postgres" {
@@ -19,7 +30,8 @@ resource "aws_db_subnet_group" "postgres" {
   name = "${var.project_name}-db-subnet-group"
 
   subnet_ids = [
-    aws_subnet.private.id
+    aws_subnet.private_a.id,
+    aws_subnet.private_b.id
   ]
 
   tags = {

@@ -1,17 +1,17 @@
-resource "aws_ssm_parameter" "github_token" {
+resource "aws_ssm_parameter" "environment" {
 
-  name        = "/${var.project_name}/github-token"
-  description = "GitHub Personal Access Token."
-  type        = "SecureString"
-  value       = "replace-me"
+  name        = "/${var.project_name}/environment"
+  description = "Deployment environment for Pulse CI."
+  type        = "String"
+  value       = var.environment
 
 }
 
-resource "aws_ssm_parameter" "flask_secret" {
+resource "aws_ssm_parameter" "log_level" {
 
-  name        = "/${var.project_name}/flask-secret"
-  description = "Flask application secret key."
-  type        = "SecureString"
-  value       = "replace-me"
+  name        = "/${var.project_name}/log-level"
+  description = "Application logging level."
+  type        = "String"
+  value       = "INFO"
 
 }
