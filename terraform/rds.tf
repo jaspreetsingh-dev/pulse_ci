@@ -12,6 +12,10 @@ resource "aws_db_instance" "postgres" {
 
   allocated_storage = 20
 
+  storage_encrypted = true
+
+  port = 5432
+
   publicly_accessible = false
 
   vpc_security_group_ids = [

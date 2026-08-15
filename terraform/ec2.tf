@@ -13,6 +13,15 @@ resource "aws_instance" "pulse_ci" {
 
   user_data = file("${path.module}/userdata.sh")
 
+  metadata_options {
+    http_endpoint = "enabled"
+    http_tokens = "required"
+  }
+
+  root_block_device {
+    encrypted = true
+  }
+
   tags = {
     Name = "${var.project_name}-ec2"
   }

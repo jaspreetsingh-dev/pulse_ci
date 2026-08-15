@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 dnf update -y
 dnf install -y git python3 python3-pip
 
