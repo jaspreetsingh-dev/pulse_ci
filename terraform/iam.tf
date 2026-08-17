@@ -64,6 +64,18 @@ resource "aws_iam_policy" "ec2" {
       ]
 
       Resource = "*"
+      },
+
+      {
+        Effect = "Allow"
+
+        Action = [
+          "secretsmanager:GetSecretValue"
+        ]
+
+        Resource = [
+          aws_db_instance.postgres.master_user_secret[0].secret_arn
+        ]
       }
 
     ]

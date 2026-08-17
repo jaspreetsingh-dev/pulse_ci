@@ -11,7 +11,10 @@ resource "aws_instance" "pulse_ci" {
 
   iam_instance_profile   = aws_iam_instance_profile.ec2.name
 
-  user_data = file("${path.module}/userdata.sh")
+  user_data = templatefile("${path.module}/userdata.sh", {
+    project_name   = var.project_name
+    rds_secret_arn = aws_db_instance.postgres.master_user_secret[0].secret_arn
+  })
 
   metadata_options {
     http_endpoint = "enabled"
