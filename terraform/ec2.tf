@@ -1,15 +1,15 @@
 resource "aws_instance" "pulse_ci" {
 
-  ami                    = var.ami_id
-  instance_type          = var.instance_type
+  ami           = var.ami_id
+  instance_type = var.instance_type
 
-  subnet_id              = aws_subnet.public.id
+  subnet_id = aws_subnet.public.id
 
   vpc_security_group_ids = [
     aws_security_group.web.id
   ]
 
-  iam_instance_profile   = aws_iam_instance_profile.ec2.name
+  iam_instance_profile = aws_iam_instance_profile.ec2.name
 
   user_data = templatefile("${path.module}/userdata.sh", {
     project_name   = var.project_name
@@ -18,7 +18,7 @@ resource "aws_instance" "pulse_ci" {
 
   metadata_options {
     http_endpoint = "enabled"
-    http_tokens = "required"
+    http_tokens   = "required"
   }
 
   root_block_device {

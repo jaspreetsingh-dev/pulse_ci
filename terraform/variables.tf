@@ -1,17 +1,17 @@
 variable "region" {
-    type = string
-    description = "AWS region for deployment."
+  type        = string
+  description = "AWS region for deployment."
 }
 
 variable "project_name" {
-    type = string
-    description = "Project name."
-    default = "pulse-ci"
+  type        = string
+  description = "Project name."
+  default     = "pulse-ci"
 }
 
 variable "environment" {
-    type = string
-    description = "Deployment environment."
+  type        = string
+  description = "Deployment environment."
 }
 
 variable "vpc_cidr" {
@@ -35,14 +35,14 @@ variable "private_subnet_b_cidr" {
 }
 
 variable "instance_type" {
-    type = string
-    description = "EC2 instance type."
-    default = "t3.micro"
+  type        = string
+  description = "EC2 instance type."
+  default     = "t3.micro"
 }
 
 variable "ami_id" {
-    type = string
-    description = "AMI used for the EC2 instance."
+  type        = string
+  description = "AMI used for the EC2 instance."
 }
 
 variable "ssh_allowed_ip" {

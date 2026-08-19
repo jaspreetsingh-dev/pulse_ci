@@ -1,17 +1,17 @@
-region             = "eu-north-1"
+region = "eu-north-1"
 
-project_name       = "pulse-ci"
-environment        = "production"
+project_name = "pulse-ci"
+environment  = "production"
 
-vpc_cidr           = "10.0.0.0/16"
+vpc_cidr = "10.0.0.0/16"
 
-public_subnet_cidr = "10.0.1.0/24"
-private_subnet_cidr = "10.0.2.0/24"
+public_subnet_cidr    = "10.0.1.0/24"
+private_subnet_cidr   = "10.0.2.0/24"
 private_subnet_b_cidr = "10.0.3.0/24"
 
-instance_type      = "t3.micro"
+instance_type = "t3.micro"
 
-ami_id             = "ami-07b8fb6bd3e9627a6"
+ami_id = "ami-07b8fb6bd3e9627a6"
 
 ssh_allowed_ip = "38.137.18.254/32"
 

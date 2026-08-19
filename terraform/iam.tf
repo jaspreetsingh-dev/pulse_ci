@@ -27,7 +27,7 @@ resource "aws_iam_role" "ec2" {
   tags = {
     Name = "${var.project_name}-ec2-role"
   }
-} 
+}
 
 resource "aws_iam_policy" "ec2" {
 
@@ -42,28 +42,28 @@ resource "aws_iam_policy" "ec2" {
     Statement = [
 
       {
-      Effect = "Allow"
+        Effect = "Allow"
 
-      Action = [
-        "ssm:GetParameter",
-        "ssm:GetParameters"
-      ]
+        Action = [
+          "ssm:GetParameter",
+          "ssm:GetParameters"
+        ]
 
-      Resource = [
-        "arn:aws:ssm:${var.region}:*:parameter/${var.project_name}/*"
-      ]
+        Resource = [
+          "arn:aws:ssm:${var.region}:*:parameter/${var.project_name}/*"
+        ]
       },
 
       {
-      Effect = "Allow"
- 
-      Action = [
-        "logs:CreateLogGroup",
-        "logs:CreateLogStream",
-        "logs:PutLogEvents"
-      ]
+        Effect = "Allow"
 
-      Resource = "*"
+        Action = [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ]
+
+        Resource = "*"
       },
 
       {
