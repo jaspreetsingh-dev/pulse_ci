@@ -5,9 +5,11 @@ set -euo pipefail
 dnf update -y
 dnf install -y git python3 python3-pip awscli
 
+cd /opt
+
 git clone https://github.com/jaspreetsingh-dev/pulse-ci.git
 
-cd pulse-ci
+cd /opt/pulse-ci
 
 python3 -m venv venv
 
@@ -40,4 +42,26 @@ export DB_PASSWORD=$(aws secretsmanager get-secret-value \
   --query "SecretString" \
   --output text | python3 -c 'import sys, json; print(json.load(sys.stdin)["password"])')
 
-python3 backend/app.py
+cat <<EOF > /etc/systemd/system/pulse-ci.service
+[Unit]
+Description=Pulse CI
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=/opt/pulse-ci
+Environment="DB_HOST=$${DB_HOST}"
+Environment="DB_NAME=$${DB_NAME}"
+Environment="DB_USER=$${DB_USER}"
+Environment="DB_PASSWORD=$${DB_PASSWORD}"
+Environment="DB_PORT=$${DB_PORT}"
+ExecStart=/opt/pulse-ci/venv/bin/gunicorn --bind 0.0.0.0:80 backend.app:app
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl daemon-reload
+systemctl enable pulse-ci
+systemctl start pulse-ci
