@@ -1,4 +1,4 @@
-region             = "eu-south-1"
+region             = "eu-north-1"
 
 project_name       = "pulse-ci"
 environment        = "production"
@@ -11,7 +11,7 @@ private_subnet_b_cidr = "10.0.3.0/24"
 
 instance_type      = "t3.micro"
 
-ami_id             = "ami-xxxxxxxx"
+ami_id             = "ami-07b8fb6bd3e9627a6"
 
 ssh_allowed_ip = "38.137.18.254/32"
 
