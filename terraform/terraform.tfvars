@@ -13,6 +13,6 @@ instance_type = "t3.micro"
 
 ami_id = "ami-07b8fb6bd3e9627a6"
 
-ssh_allowed_ip = "38.137.18.254/32"
+ssh_allowed_ip = "38.137.41.203/32"
 
 db_username = "pulseci"

@@ -7,7 +7,7 @@ dnf install -y git python3 python3-pip awscli
 
 cd /opt
 
-git clone https://github.com/jaspreetsingh-dev/pulse-ci.git
+git clone https://github.com/jaspreetsingh-dev/pulse_ci
 
 cd /opt/pulse-ci
 
