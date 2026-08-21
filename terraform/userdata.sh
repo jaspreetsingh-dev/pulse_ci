@@ -49,13 +49,13 @@ After=network.target
 
 [Service]
 User=root
-WorkingDirectory=/opt/pulse_ci
+WorkingDirectory=/opt/pulse_ci/backend
 Environment="DB_HOST=$${DB_HOST}"
 Environment="DB_NAME=$${DB_NAME}"
 Environment="DB_USER=$${DB_USER}"
 Environment="DB_PASSWORD=$${DB_PASSWORD}"
 Environment="DB_PORT=$${DB_PORT}"
-ExecStart=/opt/pulse_ci/venv/bin/gunicorn --bind 0.0.0.0:80 backend.app:app
+ExecStart=/opt/pulse_ci/venv/bin/gunicorn --bind 0.0.0.0:80 app:app
 Restart=on-failure
 
 [Install]
