@@ -9,7 +9,7 @@ cd /opt
 
 git clone https://github.com/jaspreetsingh-dev/pulse_ci
 
-cd /opt/pulse-ci
+cd /opt/pulse_ci
 
 python3 -m venv venv
 
@@ -49,13 +49,13 @@ After=network.target
 
 [Service]
 User=root
-WorkingDirectory=/opt/pulse-ci
+WorkingDirectory=/opt/pulse_ci
 Environment="DB_HOST=$${DB_HOST}"
 Environment="DB_NAME=$${DB_NAME}"
 Environment="DB_USER=$${DB_USER}"
 Environment="DB_PASSWORD=$${DB_PASSWORD}"
 Environment="DB_PORT=$${DB_PORT}"
-ExecStart=/opt/pulse-ci/venv/bin/gunicorn --bind 0.0.0.0:80 backend.app:app
+ExecStart=/opt/pulse_ci/venv/bin/gunicorn --bind 0.0.0.0:80 backend.app:app
 Restart=on-failure
 
 [Install]
