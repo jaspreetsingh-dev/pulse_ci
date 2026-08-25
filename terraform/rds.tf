@@ -27,6 +27,8 @@ resource "aws_db_instance" "postgres" {
   backup_retention_period = 0
 
   deletion_protection = false
+
+  skip_final_snapshot = true
 }
 
 resource "aws_db_subnet_group" "postgres" {
