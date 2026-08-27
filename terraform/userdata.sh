@@ -3,19 +3,15 @@
 set -euo pipefail
 
 dnf update -y
-dnf install -y git python3 python3-pip awscli
+dnf install -y git docker awscli
+
+systemctl enable --now docker
 
 cd /opt
 
 git clone https://github.com/jaspreetsingh-dev/pulse_ci
 
 cd /opt/pulse_ci
-
-python3 -m venv venv
-
-source venv/bin/activate
-
-pip install -r requirements.txt
 
 export DB_HOST=$(aws ssm get-parameter \
   --name "/${project_name}/db-host" \
@@ -42,26 +38,15 @@ export DB_PASSWORD=$(aws secretsmanager get-secret-value \
   --query "SecretString" \
   --output text | python3 -c 'import sys, json; print(json.load(sys.stdin)["password"])')
 
-cat <<EOF > /etc/systemd/system/pulse-ci.service
-[Unit]
-Description=Pulse CI
-After=network.target
+docker build -t pulse-ci .
 
-[Service]
-User=root
-WorkingDirectory=/opt/pulse_ci/backend
-Environment="DB_HOST=$${DB_HOST}"
-Environment="DB_NAME=$${DB_NAME}"
-Environment="DB_USER=$${DB_USER}"
-Environment="DB_PASSWORD=$${DB_PASSWORD}"
-Environment="DB_PORT=$${DB_PORT}"
-ExecStart=/opt/pulse_ci/venv/bin/gunicorn --bind 0.0.0.0:80 app:app
-Restart=on-failure
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-systemctl daemon-reload
-systemctl enable pulse-ci
-systemctl start pulse-ci
+docker run -d \
+  --name pulse-ci \
+  --restart unless-stopped \
+  -p 80:80 \
+  -e DB_HOST="$DB_HOST" \
+  -e DB_NAME="$DB_NAME" \
+  -e DB_USER="$DB_USER" \
+  -e DB_PASSWORD="$DB_PASSWORD" \
+  -e DB_PORT="$DB_PORT" \
+  pulse-ci
