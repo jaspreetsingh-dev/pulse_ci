@@ -16,6 +16,7 @@ resource "aws_instance" "pulse_ci" {
   user_data = templatefile("${path.module}/userdata.sh", {
     project_name   = var.project_name
     rds_secret_arn = aws_db_instance.postgres.master_user_secret[0].secret_arn
+    region = var.region
   })
 
   metadata_options {

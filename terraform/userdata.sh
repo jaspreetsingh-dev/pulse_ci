@@ -44,6 +44,11 @@ docker run -d \
   --name pulse-ci \
   --restart unless-stopped \
   -p 80:80 \
+  --log-driver=awslogs \
+  --log-opt awslogs-region="${region}" \
+  --log-opt awslogs-group="/pulse-ci/application" \
+  --log-opt awslogs-create-group="false" \
+  --log-opt awslogs-stream="ec2-${HOSTNAME}" \
   -e DB_HOST="$DB_HOST" \
   -e DB_NAME="$DB_NAME" \
   -e DB_USER="$DB_USER" \
