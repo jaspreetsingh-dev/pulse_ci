@@ -29,18 +29,13 @@ def analyse_repository(repo_url, commit_message):
         result3 = check_readme(repo_path)
         result4 = check_tests(repo_path)
         result5 = check_env(repo_path)
-        result6 = check_commit_message(commit_message)
+        result6 = None
+        if commit_message:
+            result6 = check_commit_message(commit_message)
         result7 = check_gitignore(repo_path)
 
-        checks = [
-            result1,
-            result2,
-            result3,
-            result4,
-            result5,
-            result6,
-            result7
-        ]
+        checks = [result1, result2, result3, result4, result5, result6, result7]
+        checks = [check for check in checks if check is not None]
 
         passed = sum(1 for check in checks if check["passed"])
         score = int(passed / len(checks) * 100)
@@ -70,7 +65,7 @@ def analysis():
     return jsonify(
         analyse_repository(
             repo_url,
-            "manual analysis"
+            None
         )
     )
 

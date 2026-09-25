@@ -52,10 +52,9 @@ def check_secrets(repo_path):
         "recommendation": None
     }
 
-
 def check_readme(repo_path):
-    for filename in ["README.md", "README.txt", "README"]:
-        if os.path.exists(os.path.join(repo_path, filename)):
+    for filename in os.listdir(repo_path):
+        if filename.lower() in ["readme.md", "readme.txt", "readme"]:
             return {
                 "name": "README",
                 "passed": True,
