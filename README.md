@@ -79,11 +79,16 @@ Store result in PostgreSQL
 
 ## Deployment
 
-The application is containerized with Docker and runs on an Amazon EC2 instance. The AWS infrastructure is defined in Terraform.
+The application is containerized with Docker and runs on an Amazon EC2 instance. Terraform provisions the AWS infrastructure listed above, and EC2 user data runs the application at launch.
 
 Database credentials are retrieved from AWS services rather than stored directly in the application source code.
 
 Application logs are sent to Amazon CloudWatch Logs.
+
+## Known Limitations
+
+* `/webhook` does not verify GitHub's webhook signature, so any request to the endpoint can trigger an analysis.
+* Manual analysis does not validate the repository URL.
 
 ## Status
 
