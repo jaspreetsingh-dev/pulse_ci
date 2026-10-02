@@ -6,17 +6,13 @@ It clones a GitHub repository, runs a set of repository-quality checks, calculat
 
 ## Checks
 
-Pulse CI currently checks:
-
-- Dependency manifest
-- Potential hardcoded secrets
-- README documentation
-- Automated tests
-- `.env.example`
-- `.gitignore`
-- Commit message convention for webhook-triggered analyses
-
-Manual repository analysis does not evaluate commit messages because no commit is associated with a manual request.
+* Dependency manifest
+* Potential hardcoded secrets
+* README documentation
+* Automated tests
+* `.env.example`
+* `.gitignore`
+* Commit message convention (webhook-triggered analyses only; manual analysis has no commit)
 
 ## Architecture
 
@@ -33,71 +29,44 @@ Manual repo URL ──► Pulse CI (Flask, Docker, EC2)
                     PostgreSQL (RDS) ──► Dashboard
 ```
 
-### AWS Services Used
-
-* EC2
-* RDS PostgreSQL
-* VPC
-* IAM
-* Systems Manager Parameter Store
-* Secrets Manager
-* CloudWatch
-
 ## Analysis Flow
 
-### Manual Analysis
-
 ```text
-Repository URL
+GitHub push event (/webhook) or manual repository URL
       ↓
 Clone repository
       ↓
 Run repository checks
+      ↓
+Evaluate commit message (webhook only)
       ↓
 Calculate score
       ↓
 Store result in PostgreSQL
 ```
 
-### Webhook Analysis
+## Configuration
+
+The application reads these environment variables:
 
 ```text
-GitHub push event
-      ↓
-/webhook
-      ↓
-Clone repository
-      ↓
-Run repository checks
-      ↓
-Evaluate commit message
-      ↓
-Calculate score
-      ↓
-Store result in PostgreSQL
+DB_HOST
+DB_NAME
+DB_USER
+DB_PORT
+DB_PASSWORD
 ```
+
+On AWS, the EC2 user data script reads the host, name, user and port from Systems Manager Parameter Store and the password from Secrets Manager, then passes them to the container.
 
 ## Deployment
 
-The application is containerized with Docker and runs on an Amazon EC2 instance. Terraform provisions the AWS infrastructure listed above, and EC2 user data runs the application at launch.
+The application is containerized with Docker and runs on an Amazon EC2 instance. Terraform provisions the AWS infrastructure, and EC2 user data runs the application at launch.
 
-Database credentials are retrieved from AWS services rather than stored directly in the application source code.
+AWS services used: EC2, RDS PostgreSQL, VPC, IAM, Systems Manager Parameter Store, Secrets Manager, CloudWatch.
 
 Application logs are sent to Amazon CloudWatch Logs.
-
-## Known Limitations
-
-* `/webhook` does not verify GitHub's webhook signature, so any request to the endpoint can trigger an analysis.
-* Manual analysis does not validate the repository URL.
-* Checks are filename and keyword heuristics, not static analysis. The secrets check looks for strings such as `password=` and `api_key=`, so it can flag harmless lines and miss real secrets written another way (for example `password = "..."`).
-* The dependency, README, `.env.example` and `.gitignore` checks only look in the repository root, and the dependency check only recognizes `requirements.txt` and `package.json`.
-* The commit message check requires one of `feat:`, `fix:`, `refactor:`, `docs:` or `chore:` at the start, so a scoped message such as `feat(api): ...` fails.
-* The score is the percentage of checks passed, with every check weighted equally. Manual analysis runs 6 checks and webhook analysis runs 7, so scores from the two modes are not directly comparable.
 
 ## Status
 
 The application was deployed on AWS. It is not currently running. Screenshots are in the LinkedIn Featured section.
-
-## Purpose
-
-The project was built as a practical exercise in Python application development, Docker, AWS infrastructure, database connectivity, secrets management, logging, and troubleshooting.
