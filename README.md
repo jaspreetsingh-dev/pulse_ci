@@ -89,6 +89,10 @@ Application logs are sent to Amazon CloudWatch Logs.
 
 * `/webhook` does not verify GitHub's webhook signature, so any request to the endpoint can trigger an analysis.
 * Manual analysis does not validate the repository URL.
+* Checks are filename and keyword heuristics, not static analysis. The secrets check looks for strings such as `password=` and `api_key=`, so it can flag harmless lines and miss real secrets written another way (for example `password = "..."`).
+* The dependency, README, `.env.example` and `.gitignore` checks only look in the repository root, and the dependency check only recognizes `requirements.txt` and `package.json`.
+* The commit message check requires one of `feat:`, `fix:`, `refactor:`, `docs:` or `chore:` at the start, so a scoped message such as `feat(api): ...` fails.
+* The score is the percentage of checks passed, with every check weighted equally. Manual analysis runs 6 checks and webhook analysis runs 7, so scores from the two modes are not directly comparable.
 
 ## Status
 
