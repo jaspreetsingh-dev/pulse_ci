@@ -76,6 +76,6 @@ The application was deployed on AWS. It is not currently running. Screenshots ar
 
 ![Application interface](docs/frontend.png)
 
-![Analysis results](docs/webhook-analysis.png)
+![Webhook analysis](docs/webhook-analysis.png)
 
-![Analysis results](docs/manual-analysis.png)
+![Manual analysis](docs/manual-analysis.png)
