@@ -70,7 +70,7 @@ Application logs are sent to Amazon CloudWatch Logs.
 ## Status
 
 The application was deployed on AWS. It is not currently running. Screenshots are in the LinkedIn Featured section.
-````
+
 
 ## Screenshots
 
